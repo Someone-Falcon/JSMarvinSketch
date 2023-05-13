@@ -1,0 +1,803 @@
+<head>
+  <script src="https://www.googletagmanager.com/gtag/js?id=undefined" async=""></script>
+  <script>
+    //- global rcsb-config object
+    var RC = {
+      googleAnalyticsTrackingId: 'UA-3923365-3',
+      instance: 'production',
+      isProductionServer: true,
+      dataUrl: 'https://data.rcsb.org/',
+      searchUrl: 'https://search.rcsb.org/rcsbsearch/v2/',
+      alignmentUrl: 'https://alignment.rcsb.org/api/v1-beta/',
+      internalAnalyticsOriginHeaderKey: 'Rcsb-Analytics-Traffic-Origin',
+      internalAnalyticsOriginHeaderValue: 'internal',
+      internalAnalyticsStageHeaderKey: 'Rcsb-Analytics-Traffic-Stage',
+      internalAnalyticsStageHeaderValue: 'production',
+      MOLSTAR_IMG_URL: 'https://cdn.rcsb.org/images/structures/'
+    };
+  </script>
+  <script src="/search/search-data?ts=5613044"></script>
+  <script src="/js/search/react-search.js?ts=5613044"></script>
+  <script>
+    ! function() {
+      if ("performance" in window == 0 && (window.performance = {}), Date.now = Date.now || function() {
+          return (new Date).getTime()
+        }, "now" in window.performance == 0) {
+        var n = Date.now();
+        performance.timing && performance.timing.navigationStart && (n = performance.timing.navigationStart), window.performance.now = function() {
+          return Date.now() - n
+        }
+      }
+    }();
+    (function() {
+      var h = "undefined" != typeof window && window === this ? this : "undefined" != typeof global && null != global ? global : this,
+        k = "function" == typeof Object.defineProperties ? Object.defineProperty : function(a, b, c) {
+          a != Array.prototype && a != Object.prototype && (a[b] = c.value)
+        };
+
+      function l() {
+        l = function() {};
+        h.Symbol || (h.Symbol = m)
+      }
+      var n = 0;
+
+      function m(a) {
+        return "jscomp_symbol_" + (a || "") + n++
+      }
+
+      function p() {
+        l();
+        var a = h.Symbol.iterator;
+        a || (a = h.Symbol.iterator = h.Symbol("iterator"));
+        "function" != typeof Array.prototype[a] && k(Array.prototype, a, {
+          configurable: !0,
+          writable: !0,
+          value: function() {
+            return q(this)
+          }
+        });
+        p = function() {}
+      }
+
+      function q(a) {
+        var b = 0;
+        return r(function() {
+          return b < a.length ? {
+            done: !1,
+            value: a[b++]
+          } : {
+            done: !0
+          }
+        })
+      }
+
+      function r(a) {
+        p();
+        a = {
+          next: a
+        };
+        a[h.Symbol.iterator] = function() {
+          return this
+        };
+        return a
+      }
+
+      function t(a) {
+        p();
+        var b = a[Symbol.iterator];
+        return b ? b.call(a) : q(a)
+      }
+
+      function u(a) {
+        if (!(a instanceof Array)) {
+          a = t(a);
+          for (var b, c = []; !(b = a.next()).done;) c.push(b.value);
+          a = c
+        }
+        return a
+      }
+      var v = 0;
+
+      function w(a, b) {
+        var c = XMLHttpRequest.prototype.send,
+          d = v++;
+        XMLHttpRequest.prototype.send = function(f) {
+          for (var e = [], g = 0; g < arguments.length; ++g) e[g - 0] = arguments[g];
+          var E = this;
+          a(d);
+          this.addEventListener("readystatechange", function() {
+            4 === E.readyState && b(d)
+          });
+          return c.apply(this, e)
+        }
+      }
+
+      function x(a, b) {
+        var c = fetch;
+        fetch = function(d) {
+          for (var f = [], e = 0; e < arguments.length; ++e) f[e - 0] = arguments[e];
+          return new Promise(function(d, e) {
+            var g = v++;
+            a(g);
+            c.apply(null, [].concat(u(f))).then(function(a) {
+              b(g);
+              d(a)
+            }, function(a) {
+              b(a);
+              e(a)
+            })
+          })
+        }
+      }
+      var y = "img script iframe link audio video source".split(" ");
+
+      function z(a, b) {
+        a = t(a);
+        for (var c = a.next(); !c.done; c = a.next())
+          if (c = c.value, b.includes(c.nodeName.toLowerCase()) || z(c.children, b)) return !0;
+        return !1
+      }
+
+      function A(a) {
+        var b = new MutationObserver(function(c) {
+          c = t(c);
+          for (var b = c.next(); !b.done; b = c.next()) b = b.value, "childList" == b.type && z(b.addedNodes, y) ? a(b) : "attributes" == b.type && y.includes(b.target.tagName.toLowerCase()) && a(b)
+        });
+        b.observe(document, {
+          attributes: !0,
+          childList: !0,
+          subtree: !0,
+          attributeFilter: ["href", "src"]
+        });
+        return b
+      }
+
+      function B(a, b) {
+        if (2 < a.length) return performance.now();
+        var c = [];
+        b = t(b);
+        for (var d = b.next(); !d.done; d = b.next()) d = d.value, c.push({
+          timestamp: d.start,
+          type: "requestStart"
+        }), c.push({
+          timestamp: d.end,
+          type: "requestEnd"
+        });
+        b = t(a);
+        for (d = b.next(); !d.done; d = b.next()) c.push({
+          timestamp: d.value,
+          type: "requestStart"
+        });
+        c.sort(function(a, b) {
+          return a.timestamp - b.timestamp
+        });
+        a = a.length;
+        for (b = c.length - 1; 0 <= b; b--) switch (d = c[b], d.type) {
+          case "requestStart":
+            a--;
+            break;
+          case "requestEnd":
+            a++;
+            if (2 < a) return d.timestamp;
+            break;
+          default:
+            throw Error("Internal Error: This should never happen");
+        }
+        return 0
+      }
+
+      function C(a) {
+        a = a ? a : {};
+        this.w = !!a.useMutationObserver;
+        this.u = a.minValue || null;
+        a = window.__tti && window.__tti.e;
+        var b = window.__tti && window.__tti.o;
+        this.a = a ? a.map(function(a) {
+          return {
+            start: a.startTime,
+            end: a.startTime + a.duration
+          }
+        }) : [];
+        b && b.disconnect();
+        this.b = [];
+        this.f = new Map;
+        this.j = null;
+        this.v = -Infinity;
+        this.i = !1;
+        this.h = this.c = this.s = null;
+        w(this.m.bind(this), this.l.bind(this));
+        x(this.m.bind(this), this.l.bind(this));
+        D(this);
+        this.w && (this.h = A(this.B.bind(this)))
+      }
+      C.prototype.getFirstConsistentlyInteractive = function() {
+        var a = this;
+        return new Promise(function(b) {
+          a.s = b;
+          "complete" == document.readyState ? F(a) : window.addEventListener("load", function() {
+            F(a)
+          })
+        })
+      };
+
+      function F(a) {
+        a.i = !0;
+        var b = 0 < a.a.length ? a.a[a.a.length - 1].end : 0,
+          c = B(a.g, a.b);
+        G(a, Math.max(c + 5E3, b))
+      }
+
+      function G(a, b) {
+        !a.i || a.v > b || (clearTimeout(a.j), a.j = setTimeout(function() {
+          var b = performance.timing.navigationStart,
+            d = B(a.g, a.b),
+            b = (window.a && window.a.A ? 1E3 * window.a.A().C - b : 0) || performance.timing.domContentLoadedEventEnd - b;
+          if (a.u) var f = a.u;
+          else performance.timing.domContentLoadedEventEnd ? (f = performance.timing, f = f.domContentLoadedEventEnd - f.navigationStart) : f = null;
+          var e = performance.now();
+          null === f && G(a, Math.max(d + 5E3, e + 1E3));
+          var g = a.a;
+          5E3 > e - d ? d = null : (d = g.length ? g[g.length - 1].end : b, d = 5E3 > e - d ? null : Math.max(d, f));
+          d && (a.s(d), clearTimeout(a.j), a.i = !1, a.c && a.c.disconnect(), a.h && a.h.disconnect());
+          G(a, performance.now() + 1E3)
+        }, b - performance.now()), a.v = b)
+      }
+
+      function D(a) {
+        a.c = new PerformanceObserver(function(b) {
+          b = t(b.getEntries());
+          for (var c = b.next(); !c.done; c = b.next())
+            if (c = c.value, "resource" === c.entryType && (a.b.push({
+                start: c.fetchStart,
+                end: c.responseEnd
+              }), G(a, B(a.g, a.b) + 5E3)), "longtask" === c.entryType) {
+              var d = c.startTime + c.duration;
+              a.a.push({
+                start: c.startTime,
+                end: d
+              });
+              G(a, d + 5E3)
+            }
+        });
+        a.c.observe({
+          entryTypes: ["longtask", "resource"]
+        })
+      }
+      C.prototype.m = function(a) {
+        this.f.set(a, performance.now())
+      };
+      C.prototype.l = function(a) {
+        this.f.delete(a)
+      };
+      C.prototype.B = function() {
+        G(this, performance.now() + 5E3)
+      };
+      h.Object.defineProperties(C.prototype, {
+        g: {
+          configurable: !0,
+          enumerable: !0,
+          get: function() {
+            return [].concat(u(this.f.values()))
+          }
+        }
+      });
+      var H = {
+        getFirstConsistentlyInteractive: function(a) {
+          a = a ? a : {};
+          return "PerformanceLongTaskTiming" in window ? (new C(a)).getFirstConsistentlyInteractive() : Promise.resolve(null)
+        }
+      };
+      "undefined" != typeof module && module.exports ? module.exports = H : "function" === typeof define && define.amd ? define("ttiPolyfill", [], function() {
+        return H
+      }) : window.ttiPolyfill = H;
+    })();
+
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+    var logger = function() {
+      "use strict";
+
+      function n(n) {
+        if (n = JSON.stringify(n), "sendBeacon" in navigator) navigator.sendBeacon(t, n);
+        else {
+          var e = new XMLHttpRequest;
+          e.open("POST", t, !1), e.setRequestHeader("Content-Type", "text/plain;charset=UTF-8"), e.send(n)
+        }
+      }
+
+      function e(e, t, i) {
+        if (!RC.isProductionServer) switch (e) {
+          case "error":
+          case "warn":
+          case "info":
+            i ? console[e](t, i) : console[e](t);
+            break;
+          default:
+            console.log(t, i)
+        }
+        "error" !== e && "warn" !== e || (r.push({
+          level: e,
+          msg: t || "",
+          info: Object.assign({}, i, {
+            path: window.location.pathname,
+            userAgent: navigator.userAgent
+          })
+        }), r.length >= o && n(r.splice(0, o)))
+      }
+      var t = "/analytics",
+        o = 10,
+        r = [];
+      return window.addEventListener("unload", function() {
+        n(r)
+      }, !1), {
+        stack: Function.prototype.bind.call(function(n) {
+          n && e("error", n.name + ': "' + n.message + '"', {
+            type: n.name,
+            description: n.message,
+            trace: n.stack
+          })
+        }),
+        error: Function.prototype.bind.call(function(n, t) {
+          e("error", n, t)
+        }),
+        warn: Function.prototype.bind.call(function(n, t) {
+          e("warn", n, t)
+        }),
+        info: Function.prototype.bind.call(function(n, t) {
+          e("info", n, t)
+        }),
+        verbose: Function.prototype.bind.call(function(n, t) {
+          e("verbose", n, t)
+        }),
+        debug: Function.prototype.bind.call(function(n, t) {
+          e("debug", n, t)
+        }),
+        silly: Function.prototype.bind.call(function(n, t) {
+          e("silly", n, t)
+        })
+      }
+    }();
+    window.dataLayer = window.dataLayer || [], gtag("js", new Date), gtag("config", RC.googleAnalyticsTrackingId), gtag("config", "G-5JMGYPWJRR"), window.addEventListener("error", function(n) {
+      logger.stack(n.error)
+    }), window.addEventListener("unhandledrejection", function(n) {
+      n && n.reason && logger.error('Unhandled promise rejection: "' + n.reason.message + '"', {
+        type: "PromiseRejection",
+        description: n.reason.message,
+        trace: n.reason.stack
+      })
+    });
+    var gtagFirstMeaningfulPaint = function() {
+      var n = !1;
+      return function() {
+        n ? logger.warn('Timing for "firstMeaningfulPaint" already sent') : (console.log("firstMeaningfulPaint", Math.round(performance.now())), n = !0)
+      }
+    }();
+    ! function() {
+      "use strict";
+      var n = 0;
+      if ("PerformanceObserver" in window && "PerformancePaintTiming" in window) {
+        new PerformanceObserver(function(e) {
+          e.getEntries().forEach(function(e) {
+            if (0 === n) {
+              e.startTime, e.duration
+            }
+          })
+        }).observe({
+          entryTypes: ["paint"]
+        });
+        var e = window.__tti = {
+          e: []
+        };
+        e.o = new PerformanceObserver(function(n) {
+          e.e = e.e.concat(n.getEntries())
+        }), e.o.observe({
+          entryTypes: ["longtask"]
+        }), ttiPolyfill.getFirstConsistentlyInteractive({}).then(function(n) {});
+        new PerformanceObserver(function(n) {
+          n.getEntries().forEach(function(n) {
+            var e = n.attribution[0] || {},
+              t = {
+                containerType: e.containerType,
+                containerName: e.containerName,
+                containerId: e.containerId,
+                containerSrc: e.containerSrc,
+                frameOrigin: n.name,
+                durationMs: n.duration,
+                startTimeMs: n.startTime
+              };
+            n.duration > 500 && logger.warn("Long running task, duration " + n.duration.toFixed(2) + "ms.", t)
+          })
+        }).observe({
+          entryTypes: ["longtask"]
+        })
+      }
+      var t = performance.now();
+      window.addEventListener("visibilitychange", function() {
+        document.hidden ? t = performance.now() : n += performance.now() - t
+      }), window.addEventListener("load", function() {
+        performance.now()
+      }), window.addEventListener("DOMContentLoaded", function() {
+        performance.now()
+      })
+    }();
+  </script>
+  <title>JSMarvinSketch - Marvin Sketch in your Browser.</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta property="og:title" content="RCSB PDB: Chemical Sketch Tool">
+  <meta property="og:description" content="As a member of the wwPDB, the RCSB PDB curates and annotates PDB data according to agreed upon standards. The RCSB PDB also provides a variety of tools and resources. Users can perform simple and advanced searches based on annotations relating to sequence, structure and function. These molecules are visualized, downloaded, and analyzed by users who range from students to specialized scientists.">
+  <meta property="og:image" content="https://cdn.rcsb.org/rcsb-pdb/v2/common/images/rcsb_logo1.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RCSB PDB: Chemical Sketch Tool">
+  <meta name="twitter:description" content="As a member of the wwPDB, the RCSB PDB curates and annotates PDB data according to agreed upon standards. The RCSB PDB also provides a variety of tools and resources. Users can perform simple and advanced searches based on annotations relating to sequence, structure and function. These molecules are visualized, downloaded, and analyzed by users who range from students to specialized scientists.">
+  <meta name="twitter:image" content="https://cdn.rcsb.org/rcsb-pdb/v2/common/images/rcsb_logo1.png">
+  <meta name="description" content="As a member of the wwPDB, the RCSB PDB curates and annotates PDB data according to agreed upon standards. The RCSB PDB also provides a variety of tools and resources. Users can perform simple and advanced searches based on annotations relating to sequence, structure and function. These molecules are visualized, downloaded, and analyzed by users who range from students to specialized scientists.">
+  <meta name="author" content="RCSB Protein Data Bank">
+  <meta name="email" content="info@rcsb.org">
+  <meta name="Charset" content="UTF-8">
+  <meta name="Distribution" content="Global">
+  <meta name="Rating" content="General">
+  <meta http-equiv="content-language" content="en-US">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#5e94c3">
+  <meta class="elastic" name="release_date" content="release.date:undef">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/img/rcsb-apple-touch-icon.jpg">
+  <link rel="stylesheet" href="https://cdn.rcsb.org/javascript/bootstrap/latest/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.rcsb.org/javascript/fontawesome/latest/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/build/css/main.css">
+  <link rel="stylesheet" href="/css/search.css?ts=5613044">
+  <script>
+    window.addEventListener('load', function() {
+      // load the JIRA feedback button only after everything else has been loaded
+      var script = document.createElement("script");
+      script.src = "/js/jira-fdbck.js";
+      script.type = "text/javascript";
+      document.getElementsByTagName("head")[0].appendChild(script);
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://cdn.rcsb.org/jira-feedback/css/jira-fdbck.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+      // load the ekko-lightbox css only after everything else has been loaded
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "/css/ekko-lightbox.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    });
+  </script>
+  <script src="https://cdn.rcsb.org/javascript/jquery/jquery-3.3.1.min.js"></script>
+  <script src="https://cdn.rcsb.org/javascript/bootstrap/latest/js/bootstrap.min.js"></script>
+  <script src="/js/ekko-lightbox.min.js" defer=""></script>
+  <script>
+    $(document).delegate('*[data-toggle="lightbox"]', "click", function(t) {
+      t.preventDefault(), $(this).ekkoLightbox()
+    });
+    $(function() {
+      $(".nav>.dropdown").on("mouseenter", function(o) {
+        $(this).addClass("open")
+      }), $(".nav>.dropdown").on("mouseleave", function(o) {
+        $(".dropdown").removeClass("open")
+      }), $('[data-toggle="tooltip"]').tooltip()
+    });
+  </script>
+  <script src="/js/jira-fdbck.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://cdn.rcsb.org/jira-feedback/css/jira-fdbck.css">
+  <link rel="stylesheet" href="/css/ekko-lightbox.css">
+</head>
+<div class="container" id="maincontentcontainer">
+  <style>
+    div#chemical-sketch-tool {
+      font-size: 12px;
+    }
+  </style>
+  <div class="row" id="chemical-sketch-tool">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <style>
+        div#help {
+          text-align: right;
+        }
+
+        div#help a {
+          text-decoration: none;
+        }
+
+        span.glyphicon-new-window {
+          font-size: 10px;
+          top: 0;
+          margin-left: 8px;
+        }
+
+        button {
+          vertical-align: top;
+        }
+
+        #marvin-sketch {
+          width: 100%;
+          height: 560px;
+          border: 1px solid #ddd;
+          margin-bottom: 20px;
+        }
+
+        .form-control {
+          font-size: 12px;
+        }
+
+        table.sketch-output tr {
+          vertical-align: top;
+        }
+
+        table.sketch-output td {
+          padding-bottom: 4px;
+        }
+
+        td.output-name {
+          padding: 2px 8px 2px 0;
+          text-align: right;
+        }
+
+        #sketch-output,
+        #search-panel {
+          display: none;
+        }
+
+        #smiles-output,
+        #inchi-output {
+          padding: 4px 8px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+
+        table.controls td {
+          padding: 0 8px 8px 0;
+        }
+
+        table.controls td.control-label {
+          line-height: 30px;
+        }
+
+        table.controls td.control-descriptor {
+          width: 100%;
+        }
+
+        table.controls td.control-radio {
+          padding-right: 0;
+        }
+
+        table.controls td.control-radio-label {
+          padding-right: 16px;
+        }
+
+        table.controls td.control-go {
+          padding-left: 8px;
+        }
+
+        table.controls input[type='text'] {
+          height: 30px;
+        }
+
+        table.controls input[type='radio'] {
+          margin: 8px 2px 0 0;
+        }
+
+        table.controls select {
+          width: auto;
+        }
+      </style>
+      <script src="https://marvinjs.chemicalize.com/v1/fcc0cc8570204c48a6447859c71cf611/client-settings.js"></script>
+      <script src="https://marvinjs.chemicalize.com/v1/client.js"></script>
+      <script>
+        var placeholders = {
+          inchi: 'e.g., InChI=1S/C10H16N...',
+          smiles: 'e.g., c1nc(c2c(n1)n(cn...',
+          ccdid: 'e.g., AMP'
+        }
+        var descriptors = {
+          inchi: 'InChI',
+          smiles: 'SMILES',
+          ccdid: 'Chemical Component ID'
+        }
+        var query = {
+          service: 'chemical',
+          parameters: {
+            type: 'descriptor'
+          }
+          //, label: 'chemical'
+        }
+        var marvinSketcherInstance
+
+        function loadMolecule() {
+          var descriptor = $('#descriptor').val(),
+            value = $.trim($('#descriptor-value').val())
+          if (value.length > 0) {
+            if (descriptor === 'ccdid') {
+              $.ajax({
+                type: 'GET',
+                url: 'https://data.rcsb.org/rest/v1/core/chemcomp/' + value,
+                dataType: 'json',
+                success: function(data) {
+                  var mol = data.rcsb_chem_comp_descriptor.smilesstereo;
+                  marvinSketcherInstance.importStructure('smiles', mol);
+                },
+                error: function() {
+                  alert('Not a valid ' + descriptors[descriptor])
+                }
+              })
+            } else {
+              marvinSketcherInstance.importStructure(descriptor, value) // returns promise - see https://marvinjs-demo.chemaxon.com/latest/jsdoc.html
+                .then(function(result) {}, function(error) {
+                  console.log(error)
+                  alert('Not a valid ' + descriptors[descriptor])
+                })
+            }
+          } else {
+            alert('No value was entered for Load Molecule.')
+          }
+        }
+        //- reset value and set placeholder
+        function selectDescriptor() {
+          var descriptor = $('#descriptor').val()
+          $('#descriptor-value').val('')
+          $('#descriptor-value').attr('placeholder', placeholders[descriptor])
+        }
+
+        function getQuery(descriptorType, value, match_type) {
+          query.parameters.value = value
+          query.parameters.descriptor_type = descriptorType;
+          query.parameters.match_type = match_type;
+          return '/search?query=' + encodeURIComponent(JSON.stringify(query)) + '&return_type=mol_definition';
+        }
+
+        function search() {
+          var descriptor = $('input[name="search-descriptor"]:checked').val(),
+            val = $('#' + descriptor + '-output').html(),
+            match_type = $('#match-type').val()
+          console.log(descriptor, val, match_type)
+          if (val.length === 0) alert('No ' + descriptors[descriptor] + ' value is present')
+          else location.href = getQuery(descriptors[descriptor], val, match_type)
+        }
+        $(function() {
+          selectDescriptor() // init descriptor placeholder
+          // set match_type if param exists
+          var match_type = new URLSearchParams(window.location.search).get('match_type')
+          if (match_type) $('#match-type').val(match_type).prop('selected', true)
+        })
+      </script>
+      <h1>JSMarvinSketch v 1.0 beta</h1>
+      <p>Use JS MarvinSketch to draw or edit a molecule. The resulting SMILES or InChI string may be used to search for matching molecules in the PDB Chemical Component Dictionary.</p>
+      <p style="margin-bottom: 0px;">Note that matches will include any chemical component in the dictionary, including polymeric ones like Alanine or Adenosine.</p>
+      <div id="help">
+	  <p>Help not avalible now.</p>
+</a>
+      </div>
+      <p>
+        <img src="https://cdn.rcsb.org/rcsb-pdb/img/powered_by_chemaxon_GOLD_M_sm.png">
+      </p>
+      <br>
+      <div id="marvin-sketch">
+        </div>
+      <script>
+        ChemicalizeMarvinJs.createEditor('#marvin-sketch').then(function(marvin) {
+          marvinSketcherInstance = marvin
+          var urlParams = new URLSearchParams(window.location.search) // this convenient function has incomplete browser coverage (no IE) - should use a more generic function here
+            ,
+            descriptor_type = urlParams.get('descriptor_type'),
+            value = urlParams.get('value')
+          if (descriptor_type && value) marvin.importStructure(descriptor_type, value)
+
+          function handleMolChange() {
+            marvin.exportStructure('smiles').then(function(smiles) {
+              console.log(smiles + ' ' + typeof smiles)
+              if (!smiles || smiles.length === 0) {
+                $('#sketch-output').hide()
+                $('#search-panel').hide()
+              } else {
+                $('#sketch-output').show()
+                $('#search-panel').show()
+              }
+              $('#smiles-output').html(smiles)
+            });
+            marvin.exportStructure('inchi').then(function(inchi) {
+              console.log(inchi)
+              // actual inchi comes in first line
+              $('#inchi-output').html(inchi.split('\n')[0])
+            });
+          }
+          marvin.on('molchange', handleMolChange)
+        });
+      </script>
+      <div class="panel panel-default" id="sketch-output">
+        <div class="panel-heading">Chemical descriptors of the molecule currently displayed in the sketch tool</div>
+        <div class="panel-body">
+          <table class="sketch-output">
+            <tbody>
+              <tr>
+                <td class="output-name">SMILES</td>
+                <td>
+                  <div id="smiles-output"></div>
+                </td>
+              </tr>
+              <tr>
+                <td class="output-name">InChI</td>
+                <td>
+                  <div id="inchi-output"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">Load Molecule</div>
+        <div class="panel-body">
+          <table class="controls">
+            <tbody>
+              <tr>
+                <td class="control-label">Descriptor</td>
+                <td>
+                  <select class="form-control input-sm" id="descriptor" onchange="selectDescriptor()">
+                    <option value="inchi">InChI</option>
+                    <option value="smiles">SMILES</option>
+                    <option value="ccdid">Chemical Component ID</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="control-descriptor">
+                  <input class="form-control" id="descriptor-value" type="text" placeholder="e.g., c1nc(c2c(n1)n(cn...">
+                </td>
+                <td>
+                  <button class="btn btn-default btn-sm" type="button" onclick="loadMolecule()">Load</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel panel-default" id="search-panel">
+        <div class="panel-heading">Search</div>
+        <div class="panel-body">
+          <table class="controls">
+            <tbody>
+              <tr>
+                <td class="control-label">Search PDB for</td>
+                <td>
+                  <select class="form-control input-sm" id="match-type">
+                    <option value="graph-relaxed-stereo">Similar Ligands (Stereospecific)</option>
+                    <option value="graph-relaxed">Similar Ligands (including Stereoisomers)</option>
+                    <option value="fingerprint-similarity">Similar Ligands (Quick screen)</option>
+                    <option value="sub-struct-graph-relaxed-stereo">Substructure (Stereospecific)</option>
+                    <option value="sub-struct-graph-relaxed">Substructure (including Stereoisomers)</option>
+                    <option value="graph-exact">Exact match</option>
+                  </select>
+                </td>
+                <td class="control-label">by</td>
+                <td class="control-radio">
+                  <input type="radio" name="search-descriptor" value="inchi" checked="">
+                </td>
+                <td class="control-label control-radio-label">InChI</td>
+                <td class="control-radio">
+                  <input type="radio" name="search-descriptor" value="smiles">
+                </td>
+                <td class="control-label control-radio-label">SMILES</td>
+                <td class="control-go">
+                  <button class="btn btn-default btn-sm" type="button" onclick="search()">Search</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p>Documentation on using the Marvin JS Editor can be found here:</p>
+      <p>
+        <a href="https://docs.chemaxon.com/display/docs/marvin-js-user-s-guide.md" target="_blank" rel="noopener">Marvin JS Editor User Guide <span class="glyphicon glyphicon-new-window"></span>
+        </a>
+        <br>
+        <a href="https://docs.chemaxon.com/display/docs/marvin-js-video-tutorials.md" target="_blank" rel="noopener">Marvin JS Editor Video Tutorials <span class="glyphicon glyphicon-new-window"></span>
+        </a>
+      </p>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
